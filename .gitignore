@@ -1,0 +1,9 @@
+/target/
+/target/classes/
+/target/classes/dao/
+/target/classes/domain/
+/target/classes/service/
+/target/classes/Main.class
+/target/classes/questions.csv
+/target/classes/spring-context.xml
+/target/generated-sources/
