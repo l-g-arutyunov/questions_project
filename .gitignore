@@ -53,6 +53,6 @@ fabric.properties
 # modules.xml
 
 /target/
-/.idea/
+.idea/
 
 
