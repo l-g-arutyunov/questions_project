@@ -1,4 +1,4 @@
-package domain;
+package ru.diasoft.questions.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
