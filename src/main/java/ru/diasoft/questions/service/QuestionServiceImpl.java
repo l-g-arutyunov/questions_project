@@ -1,19 +1,19 @@
-package service;
+package ru.diasoft.questions.service;
 
-import dao.QuestionsDao;
-import domain.Question;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ru.diasoft.questions.dao.QuestionsDao;
+import ru.diasoft.questions.domain.Question;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class QuestionServiceImpl implements QuestionService{
+@Service
+@RequiredArgsConstructor
+public class QuestionServiceImpl implements QuestionService {
     private final QuestionsDao questionsDao;
-
-    public QuestionServiceImpl(QuestionsDao questionsDao) {
-        this.questionsDao = questionsDao;
-    }
 
     @Override
     public Map<Question, Boolean> quizStart() {
@@ -26,10 +26,10 @@ public class QuestionServiceImpl implements QuestionService{
             System.out.println(question.getText());
             String answer = scanner.nextLine();
             if (question.getAnswer().equals(answer)) {
-                System.out.println("Верно!" + '\n');
+                System.out.println("Yes!" + '\n');
                 result.put(question, true);
             } else {
-                System.out.println("Ошибка!!!" + '\n');
+                System.out.println("No!!!" + '\n');
                 result.put(question, false);
             }
         }
@@ -37,9 +37,9 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     public void printResult(Map<Question, Boolean> result) {
-        System.out.println("Результат игры:");
+        System.out.println("Result of game:");
         for (Map.Entry<Question, Boolean> entry : result.entrySet()) {
-            System.out.println("Вопрос №" + entry.getKey().getId() + " результат - " + (entry.getValue() ? "верно" : "неверно"));
+            System.out.println("Question №" + entry.getKey().getId() + " result - " + (entry.getValue() ? "good" : "terrible"));
         }
     }
 

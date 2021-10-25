@@ -1,18 +1,26 @@
-package dao;
+package ru.diasoft.questions.dao;
 
-import domain.Question;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+import ru.diasoft.questions.domain.Question;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class QuestionsDaoImpl implements QuestionsDao {
-    private static final String QUESTIONS_CSV = "questions.csv";
+
+    private final String fileName;
+
+    public QuestionsDaoImpl(@Value("${external.questionsFileName}") String fileName) {
+        this.fileName = fileName;
+    }
 
     @Override
     public List<Question> getQuestions() {
-        String questionPath = getClass().getClassLoader().getResource(QUESTIONS_CSV).getPath();
+        String questionPath = getClass().getClassLoader().getResource(fileName).getPath();
         List<Question> questions = new ArrayList<>();
 
         try {

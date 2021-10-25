@@ -1,6 +1,6 @@
-package service;
+package ru.diasoft.questions.service;
 
-import domain.Question;
+import ru.diasoft.questions.domain.Question;
 
 import java.util.Map;
 
