@@ -1,19 +1,21 @@
 package ru.diasoft.questions.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import ru.diasoft.questions.dao.QuestionsDao;
 import ru.diasoft.questions.domain.Question;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
     private final QuestionsDao questionsDao;
+    private final MessageSource messageSource;
+    @Value("${external.locale}")
+    private String locale;
 
     @Override
     public Map<Question, Boolean> quizStart() {
@@ -26,10 +28,10 @@ public class QuestionServiceImpl implements QuestionService {
             System.out.println(question.getText());
             String answer = scanner.nextLine();
             if (question.getAnswer().equals(answer)) {
-                System.out.println("Yes!" + '\n');
+                System.out.println(getMessage("yes") + '\n');
                 result.put(question, true);
             } else {
-                System.out.println("No!!!" + '\n');
+                System.out.println(getMessage("no") + '\n');
                 result.put(question, false);
             }
         }
@@ -37,10 +39,15 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     public void printResult(Map<Question, Boolean> result) {
-        System.out.println("Result of game:");
+        System.out.println(getMessage("resultOfGame"));
         for (Map.Entry<Question, Boolean> entry : result.entrySet()) {
-            System.out.println("Question №" + entry.getKey().getId() + " result - " + (entry.getValue() ? "good" : "terrible"));
+            System.out.println(getMessage("question") + entry.getKey().getId() + " " +
+                    getMessage("result") + " " + (entry.getValue() ? getMessage("good") : getMessage("terrible")));
         }
+    }
+
+    private String getMessage(String word) {
+        return messageSource.getMessage("service." + word + ".string", null, Locale.forLanguageTag(locale));
     }
 
 }

@@ -1,6 +1,8 @@
 package ru.diasoft.questions.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Repository;
 import ru.diasoft.questions.domain.Question;
 
@@ -9,14 +11,12 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@ConfigurationProperties(prefix = "questions")
 @Repository
 public class QuestionsDaoImpl implements QuestionsDao {
 
-    private final String fileName;
-
-    public QuestionsDaoImpl(@Value("${external.questionsFileName}") String fileName) {
-        this.fileName = fileName;
-    }
+    @Value("${external.fileName}")
+    private String fileName;
 
     @Override
     public List<Question> getQuestions() {

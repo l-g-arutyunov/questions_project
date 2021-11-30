@@ -1,0 +1,6 @@
+spring:
+  main:
+    banner-mode: console
+external:
+  fileName: questionsEn_en.csv
+  locale: ru-RU
